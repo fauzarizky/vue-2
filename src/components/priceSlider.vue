@@ -1,5 +1,5 @@
 <template>
-        <transition name="custom" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="animate_animated animate__fadeOutDown"> <!--memanfaatkan event yang dimiliki vue JS @beforeEnter etc-->
+        <transition name="custom" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="animate_animated animate__fadeOutRight"> <!--memanfaatkan event yang dimiliki vue JS @beforeEnter etc-->
             <div v-if="sliderStatus">
                 <div class="align-items-center" :class="sliderState">
                     <label class="font-weight-bold mr-2">Max</label> <!--Binding class menggunakan tipe data array-->

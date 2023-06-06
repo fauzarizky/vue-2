@@ -1,13 +1,14 @@
 <template>
   <div id="app" class="container mt-5">
     <h1>IDShop</h1>
+    <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal" @toggle="toggleSliderStatus" @delete="deleteItem"></navbar>
     <price-slider :sliderStatus="sliderStatus" :maximum.sync="maximum"></price-slider>
     <product-list :products="products" :maximum="maximum" @add="addItem"></product-list>
   </div>
 </template>
 
 <script>
-// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import navbar from './components/navbar.vue';
 import priceSlider from './components/priceSlider.vue';
 import productList from './components/productList.vue';
 
@@ -18,13 +19,13 @@ export default {
       maximum: 50,
       products: [],
       cart: [],
-      sliderStatus: true
+      sliderStatus: false
     }
   },
   components: {
-    // FontAwesomeIcon,
+    navbar,
     priceSlider,
-    productList
+    productList,
   },
   mounted: function() { //bersifat memiliki beberapa func
         fetch('https://hplussport.com/api/products/order/price') // mengambil data dari API
@@ -33,7 +34,27 @@ export default {
             this.products = data;  // variable data akan dimasukan ke variable/property products didalam property data di atas(products: null)
         })
     },
+  computed: { 
+        cartTotal: function(){
+            let sum = 0;
+            for (let key in this.cart) {
+                sum = sum + (this.cart[key].product.price * this.cart[key].qty); // mendapatkan nilai harga dari masing2 data cart berdasarkan keynya, key didapat dari proses perulangan
+            } // mendapatkan nilai key dari data yg ada di dalam cart
+            return sum; //hasilnya akan diberikan nilai balik dari variable sum tsb
+        },
+        cartQty: function(){
+            let qty = 0;
+            for (let key in this.cart) {
+                qty = qty + this.cart[key].qty; // cara mendapatkan data: menjumlahkan masing2 nilai dari qty/ kuantitas dari item tsb
+            } // mendapatkan nilai key dari data yg ada di dalam cart
+            return qty; //hasilnya akan diberikan nilai balik dari variable qty tsb
+        },
+    },
+
   methods: {
+    toggleSliderStatus: function() {
+      this.sliderStatus = !this.sliderStatus;
+    },
     addItem: function(product) { // (product) adalah parameter
             // this.cart.push(product) // data dari product tsb yg didapatkan dri variable item akan dimasukan kedalam cart, (untuk mengakses dari data card, menggunakan keyword THIS )
             let productIndex;
@@ -51,6 +72,13 @@ export default {
                 this.cart.push({product: product, qty: 1})
             }
         },
+        deleteItem : function(key) {
+            if (this.cart[key].qty > 1) {
+                this.cart[key].qty--; // akan mengurangi jika lebih dari 1
+            } else {
+                this.cart.splice(key, 1); // jika hanya 1 maka kita akan delete 
+            } // akan mengecek jika qty lebih dari 1 
+        }
   }
 };
 </script>
