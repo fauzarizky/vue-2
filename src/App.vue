@@ -72,7 +72,7 @@ export default {
                 this.cart.push({product: product, qty: 1})
             }
         },
-        deleteItem : function(key) {
+    deleteItem : function(key) {
             if (this.cart[key].qty > 1) {
                 this.cart[key].qty--; // akan mengurangi jika lebih dari 1
             } else {
