@@ -21,7 +21,7 @@ export default {
     props: ["sliderStatus", "maximum"],
     computed: {
         sliderState: function() {
-            return this.sliderStatus ? 'd-flex': 'd-none'; // output bergantung pada slider status apakah true/false jika true maka return nya d-flex jika false d-none, (?) adalah ternary
+            return this.sliderStatus ? 'd-flex': 'd-none'; // output bergantung pada slider status apakah true/false jika true maka return nya d-flex jika false d-none, (?) adalah ternary.
         },
     }
 }
