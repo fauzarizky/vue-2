@@ -2,7 +2,7 @@
     <transition-group name="fade" tag="div" @beforeEnter="before" @enter="enter" @leave="leave"><!--tag untuk menunjukan bahwa effect transition ini akan diberikan di element div karena transisi group secara default mencari element span -->            
     <div class="row d-none mb-3 align-items-center" v-for="(item, index) in showItem" :key="item.id" :data-index="index"> <!--Directive v-for/perulangan (temporary variable = item), meminta nilai index saat melakukan perulangan-->,<!--menampilkan harga dibawah nilai maximum dgn pengkondisian if, math trunc berfungsi untuk mengembalikan bilangan buat dari suatu angka dengan menghilangkan digit pecahan -->
             <div class="col-1 m-auto">
-                <button class="btn btn-info" @click="$emit('add', item)">+</button>
+                <button class="btn btn-info" @click="$emit('add-item', item)">+</button>
             </div>
             <div class="col-sm-4">
                 <img v-bind:src="item.image" :alt="item.name" class="img-fluid d-block"> <!-- cara sederhana: hilangkan v-bind-->

@@ -1,17 +1,26 @@
 <template>
   <div id="app" class="container mt-5">
-    <h1>IDShop</h1>
-    <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal" @toggle="toggleSliderStatus" @delete="deleteItem"></navbar>
-    <price-slider :sliderStatus="sliderStatus" :maximum.sync="maximum"></price-slider>
-    <product-list :products="products" :maximum="maximum" @add="addItem"></product-list>
+    <checkout
+      :cart="cart"
+      :cartTotal="cartTotal"
+      @add="addItem"
+      @delete="deleteItem"></checkout>
+    <products
+      :cart="cart"
+      :cartQty="cartQty"
+      :cartTotal="cartTotal"
+      :maximum.sync="maximum"
+      :products="products"
+      :sliderStatus="sliderStatus"
+      @toggle="toggleSliderStatus"
+      @add="addItem"
+      @delete="deleteItem"></products>
   </div>
 </template>
 
 <script>
-import navbar from './components/navbar.vue';
-import priceSlider from './components/priceSlider.vue';
-import productList from './components/productList.vue';
-
+import checkout from './components/checkout.vue';
+import products from './components/products.vue';
 export default {
   name: "App",
   data: function() {
@@ -22,11 +31,10 @@ export default {
       sliderStatus: false
     }
   },
-  components: {
-    navbar,
-    priceSlider,
-    productList,
-  },
+components: {
+  checkout,
+  products
+},
   mounted: function() { //bersifat memiliki beberapa func
         fetch('https://hplussport.com/api/products/order/price') // mengambil data dari API
         .then(Response => Response.json()) // mengubah respon yg didapat menjadi JSON
