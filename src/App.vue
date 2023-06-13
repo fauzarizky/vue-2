@@ -1,11 +1,6 @@
 <template>
   <div id="app" class="container mt-5">
-    <checkout
-      :cart="cart"
-      :cartTotal="cartTotal"
-      @add="addItem"
-      @delete="deleteItem"></checkout>
-    <products
+    <router-view
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
@@ -14,13 +9,11 @@
       :sliderStatus="sliderStatus"
       @toggle="toggleSliderStatus"
       @add="addItem"
-      @delete="deleteItem"></products>
+      @delete="deleteItem"></router-view>
   </div>
 </template>
 
 <script>
-import checkout from './components/checkout.vue';
-import products from './components/products.vue';
 export default {
   name: "App",
   data: function() {
@@ -31,10 +24,6 @@ export default {
       sliderStatus: false
     }
   },
-components: {
-  checkout,
-  products
-},
   mounted: function() { //bersifat memiliki beberapa func
         fetch('https://hplussport.com/api/products/order/price') // mengambil data dari API
         .then(Response => Response.json()) // mengubah respon yg didapat menjadi JSON
